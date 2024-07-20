@@ -21,7 +21,12 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, Messa
 import config
 import utils
 
-logger = logging.getLogger('bot')
+# Enable logging
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
+logger = logging.getLogger('tari_luz_bot')
 
 
 def __get_price(data: dict) -> str:
