@@ -29,8 +29,15 @@ logging.basicConfig(
 logger = logging.getLogger('tari_luz_bot')
 
 
-
 async def command_cheapest(update, _context: ContextTypes.DEFAULT_TYPE):
+    """
+    Handles the /cheapest command, retrieves the current date, reads data from a CSV file,
+    updates the cache file if needed, and sends a message with the cheapest price data in HTML format.
+
+    Parameters:
+        update (Update): The update object containing information about the incoming message.
+        _context (ContextTypes.DEFAULT_TYPE): The context object containing information about the current state of the bot.
+    """
     logger.info('Bot asked to execute /cheapest command')
     utc_now = datetime.datetime.now(datetime.UTC)
     date_str = utc_now.strftime('%d/%m/%Y')
@@ -62,6 +69,18 @@ async def command_cheapest(update, _context: ContextTypes.DEFAULT_TYPE):
 
 
 async def command_help(update, _context: ContextTypes.DEFAULT_TYPE):
+    """
+    Handles the /help command.
+
+    It sends a message with a list of available commands to the user.
+
+    Parameters:
+        update (Update): The update object containing information about the incoming message.
+        _context (ContextTypes.DEFAULT_TYPE): The context object containing information about the current state of the bot.
+
+    Returns:
+        None
+    """
     logger.info('Received command /help')
     await update.message.reply_text(
         "Comandos disponibles:\n"
@@ -73,16 +92,54 @@ async def command_help(update, _context: ContextTypes.DEFAULT_TYPE):
 
 
 async def command_start(update, _context: ContextTypes.DEFAULT_TYPE):
+    """
+    Handles the /start command. It replies with the bot greeting message.
+
+    Parameters:
+        update (Update): The update object containing information about the incoming message.
+        _context (ContextTypes.DEFAULT_TYPE): The context object containing information about the current state of the bot.
+
+    Returns:
+        None
+    """
     logger.info('Received command /start')
     await update.message.reply_text(config.BOT_GREETING)
 
 
 async def command_status(update, _context: ContextTypes.DEFAULT_TYPE):
+    """
+    Handles the /status command. It replies with the bot uptime.
+
+    Parameters:
+        update (Update): The update object containing information about the incoming message.
+        _context (ContextTypes.DEFAULT_TYPE): The context object containing information about the current state of the bot.
+
+    Returns:
+        None
+    """
     logger.info('bot asked to execute /status command')
     await update.message.reply_text(f'Status is OK, running since {utils.since()}')
 
 
+async def handle_private_message(update: Update, _context: ContextTypes.DEFAULT_TYPE) -> None:
+    """
+    Just tell the use to use commands instead of regular text.
+
+    Args:
+        update (Update): The update object containing information about the incoming message.
+        _context (ContextTypes.DEFAULT_TYPE): The context object containing information about the current state of the bot.
+
+    Returns:
+        None
+    """
+    await update.message.reply_text('I would be glad to have a conversation with you but I only reply to commands,\
+                                    use my /help command to know the options please')
+
+
 def main():
+    """
+    A function to initialize the main bot functionality and bot commands.
+    """
     logging.basicConfig(
         level=config.LOG_LEVEL,
         format='%(asctime)s [%(name)s] %(levelname)s: %(message)s',
