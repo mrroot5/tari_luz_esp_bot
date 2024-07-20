@@ -158,7 +158,7 @@ def main():
         listen='127.0.0.1',
         port=8080,
         url_path='/',
-        webhook_url='https://88f3-92-177-3-22.ngrok-free.app'  # Replace with your ngrok URL
+        webhook_url=config.WEBHOOK_URL
     )
 
 
