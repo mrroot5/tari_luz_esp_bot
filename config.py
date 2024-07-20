@@ -1,7 +1,6 @@
-from typing import NamedTuple, Any
+from typing import Any, NamedTuple
 
 from prettyconf import config as _config
-
 
 _config_registry = []
 
@@ -31,6 +30,8 @@ def log(logger_method):
 
 
 TELEGRAM_BOT_TOKEN = config(
+    "TELEGRAM_BOT_TOKEN", default="put here the token of your bot", suppress_log=True
+)
 
 WEBHOOK_URL = config(
     "WEBHOOK_URL", default="https://88f3-92-177-3-22.ngrok-free.app", suppress_log=True
