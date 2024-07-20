@@ -152,6 +152,9 @@ def main():
     app.add_handler(CommandHandler('help', command_help))
     app.add_handler(CommandHandler('status', command_status))
     app.add_handler(CommandHandler('cheapest', command_cheapest))
+    app.add_handler(MessageHandler(
+        filters.TEXT & ~filters.COMMAND & filters.ChatType.PRIVATE, handle_private_message)
+    )
 
     logger.info('Bot is ready')
     app.run_webhook(
