@@ -46,7 +46,8 @@ LOG_LEVEL = config('LOG_LEVEL', default='WARNING')
 POLL_INTERVAL = config('POLL_INTERVAL', int, default=3)
 
 # Bot message for start command
-BOT_GREETING = config('BOT_GREETING', default="Hi! I'm a friendly, slightly psychopath robot")
+BOT_GREETING = config('BOT_GREETING', default="Hola! Estoy listo para darte información sobre el\
+                      precio de la luz. Usa el comando /help para ver las acciones disponibles.")
 
 # A username longer than this will be considered non-human
 # - Allowed values: An integer larger than 1
@@ -116,3 +117,5 @@ REPLIES = {
 MAXLEN_FOR_USERNAME_TO_TREAT_AS_HUMAN = 100
 
 CHINESE_CHARS_MAX_PERCENT = 0.15
+
+REQUESTS_DEFAULT_TIMEOUT = 30
