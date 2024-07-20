@@ -158,7 +158,7 @@ def main():
 
     logger.info('Bot is ready')
     app.run_webhook(
-        listen='127.0.0.1',
+        listen='0.0.0.0',
         port=8080,
         url_path='/',
         webhook_url=config.WEBHOOK_URL
