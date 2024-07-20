@@ -29,40 +29,6 @@ logging.basicConfig(
 logger = logging.getLogger('tari_luz_bot')
 
 
-def __get_price(data: dict) -> str:
-    price = data.get('price')
-    price_kwh = float(price) / 1000 if price else ''
-
-    return f"<b>{data.get('hour', '')}</b>: {price_kwh:.3f} € / kWh."
-
-
-def __get_price_data_from_file(file_reader, message=None) -> [str]:
-    if not message:
-        message = []
-
-    for row in file_reader:
-        message.append(row[0])
-
-    return message
-
-
-def __update_cache_file_with_cheapest(date_str: str) -> bool:
-    number_of_prices = 5
-    api_url = f'https://api.preciodelaluz.org/v1/prices/cheapests?zone=PCB&n={number_of_prices}'
-
-    with open('today.csv', 'w', encoding='utf-8') as csvfile:
-        file_write = csv.writer(csvfile)
-        msg_write = [[date_str]]
-
-        result = requests.get(api_url, timeout=config.REQUESTS_DEFAULT_TIMEOUT)
-        data_json = result.json()
-
-        for index, element in enumerate(data_json, start=1):
-            msg_write.append([f"{index}. {__get_price(element)}"])
-
-        file_write.writerows(msg_write)
-    return True
-
 
 async def command_cheapest(update, _context: ContextTypes.DEFAULT_TYPE):
     logger.info('Bot asked to execute /cheapest command')
@@ -137,6 +103,41 @@ def main():
         url_path='/',
         webhook_url='https://88f3-92-177-3-22.ngrok-free.app'  # Replace with your ngrok URL
     )
+
+
+def __get_price(data: dict) -> str:
+    price = data.get('price')
+    price_kwh = float(price) / 1000 if price else ''
+
+    return f"<b>{data.get('hour', '')}</b>: {price_kwh:.3f} € / kWh."
+
+
+def __get_price_data_from_file(file_reader, message=None) -> [str]:
+    if not message:
+        message = []
+
+    for row in file_reader:
+        message.append(row[0])
+
+    return message
+
+
+def __update_cache_file_with_cheapest(date_str: str) -> bool:
+    number_of_prices = 5
+    api_url = f'https://api.preciodelaluz.org/v1/prices/cheapests?zone=PCB&n={number_of_prices}'
+
+    with open('today.csv', 'w', encoding='utf-8') as csvfile:
+        file_write = csv.writer(csvfile)
+        msg_write = [[date_str]]
+
+        result = requests.get(api_url, timeout=config.REQUESTS_DEFAULT_TIMEOUT)
+        data_json = result.json()
+
+        for index, element in enumerate(data_json, start=1):
+            msg_write.append([f"{index}. {__get_price(element)}"])
+
+        file_write.writerows(msg_write)
+    return True
 
 
 if __name__ == "__main__":
