@@ -11,17 +11,15 @@ Command to get spanish light prices.
 import csv
 import datetime
 import logging
-import os
+
 from os import linesep
 
 import requests
 import telegram
 from telegram import Update
 from telegram.ext import ApplicationBuilder, filters, MessageHandler, CommandHandler, ContextTypes
-from telegram import Update
-from telegram.ext import Updater, Filters, MessageHandler, CommandHandler
 
-import settings
+import config
 import utils
 
 logger = logging.getLogger('bot')
