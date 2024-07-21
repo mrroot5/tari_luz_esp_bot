@@ -1,7 +1,11 @@
 """
-# Tarifa luz bot
+# Tari luz bot
 
 Command to get spanish light prices.
+
+## Development
+
+This module is sorted alphabetically with private functions at the end of the file
 
 ## Docs
 
@@ -12,6 +16,8 @@ import csv
 import datetime
 import logging
 from os import linesep
+from platform import python_version
+from sys import version_info
 
 import requests
 import telegram
@@ -39,7 +45,7 @@ async def command_cheapest(update: Update, _context: ContextTypes.DEFAULT_TYPE):
         _context (ContextTypes.DEFAULT_TYPE): Context object containing information about the current state of the bot.
     """
     logger.info('Bot asked to execute /cheapest command')
-    utc_now = datetime.datetime.now(datetime.timezone.utc)
+    utc_now = datetime.datetime.now(datetime.UTC)
     date_str = utc_now.strftime('%d/%m/%Y')
     msg = []
 
@@ -141,7 +147,7 @@ def main():
     A function to initialize the main bot functionality and bot commands.
     """
     logging.basicConfig(
-        level=config.LOG_LEVEL,
+        level=logging.WARNING,
         format='%(asctime)s [%(name)s] %(levelname)s: %(message)s',
     )
     logger.info('Starting bot...')
@@ -163,6 +169,13 @@ def main():
         url_path='/',
         webhook_url=config.WEBHOOK_URL
     )
+
+
+def raise_if_wrong_python_version():
+    logger.info('Python version: %s', python_version())
+
+    if version_info[0] != 3 or version_info[1] < 12:
+        raise RuntimeError('Must be using Python >= 3.12 and < 4')
 
 
 def __get_price(data: dict) -> str:
@@ -201,4 +214,5 @@ def __update_cache_file_with_cheapest(date_str: str) -> bool:
 
 
 if __name__ == "__main__":
+    raise_if_wrong_python_version()
     main()
