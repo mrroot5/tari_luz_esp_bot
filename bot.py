@@ -39,7 +39,7 @@ async def command_cheapest(update: Update, _context: ContextTypes.DEFAULT_TYPE):
         _context (ContextTypes.DEFAULT_TYPE): Context object containing information about the current state of the bot.
     """
     logger.info('Bot asked to execute /cheapest command')
-    utc_now = datetime.datetime.now(datetime.UTC)
+    utc_now = datetime.datetime.now(datetime.timezone.utc)
     date_str = utc_now.strftime('%d/%m/%Y')
     msg = []
 
