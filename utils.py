@@ -1,10 +1,11 @@
-import functools
 import datetime
+import functools
 import random
 import re
-from typing import Tuple, Optional, NamedTuple
+from typing import NamedTuple, Optional, Tuple
 
 from telegram import User
+
 import config
 
 
