@@ -33,9 +33,7 @@ TELEGRAM_BOT_TOKEN = config(
     "TELEGRAM_BOT_TOKEN", default="put here the token of your bot", suppress_log=True
 )
 
-WEBHOOK_URL = config(
-    "WEBHOOK_URL", default="https://88f3-92-177-3-22.ngrok-free.app", suppress_log=True
-)
+WEBHOOK_URL = config("WEBHOOK_URL", default="put here the webhook url of your bot")
 
 # How likely is the bot to be triggered by one of the patterns it recognises.
 # - Allowed values: A float from 0 to 1 (0 will disable bot replies)
